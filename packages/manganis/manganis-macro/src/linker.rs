@@ -20,6 +20,8 @@ pub fn generate_link_section(asset: impl ToTokens, asset_hash: &str) -> TokenStr
 
         // Now that we have the size of the asset, copy the bytes into a static array
         #[unsafe(export_name = #export_name)]
+        // During release the compiler will optimize this out so we mark as used
+        #[used]
         static __LINK_SECTION: [u8; __LEN]  = manganis::macro_helpers::copy_bytes(__BYTES);
     }
 }
